@@ -132,6 +132,16 @@ body{
     font-size: xx-small !important;
 }
 
+.player-range-modal-square:hover{
+    background-color: yellow !important;
+    filter: brightness(75%);
+}
+
+.player-range-modal-square:active{
+    background-color: yellow !important;
+    filter: brightness(50%);
+}
+
 /***** Board *****/
 .board{
     width: 100%;

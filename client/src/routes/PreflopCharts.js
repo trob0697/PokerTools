@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ButtonGroup, Button } from "react-bootstrap";
 
 import RangeChart from "../components/RangeChart";
-import Dice from "../assets/images/dice.png"
+import Dice from "../assets/images/dice.png";
 
 function PreflopCharts(){
     const [selections, setSelections] = useState(["", "", "", ""]);
@@ -17,19 +17,19 @@ function PreflopCharts(){
     ];
 
     const onClickButton = (option, param) => {
-        const newSelections = [...selections];
-        newSelections[option] = param;
+        const tempSelections = [...selections];
+        tempSelections[option] = param;
         
         if(option === 1 && param === "RFI"){
             option++;
-            newSelections[option] = "None";
+            tempSelections[option] = "None";
         }
 
         for(let i = option+1; i < selections.length; i++){
-            newSelections[i]= "";
+            tempSelections[i]= "";
         }
 
-        setSelections(newSelections);
+        setSelections(tempSelections);
     }
 
     const onClickRandomize = () => {
@@ -41,15 +41,15 @@ function PreflopCharts(){
         <div>
             <div className="preflop-charts-btns-container">
                 <div className="btn-group-spacing">
-                {games.map((item, index) => { return ( 
-                    <Button className="btn-spacing" variant={(selections[0] === item ? "light" : "secondary")} onClick={() => onClickButton(0, item)} key={index}>{item}</Button>
+                {games.map((item, i) => { return ( 
+                    <Button className="btn-spacing" variant={(selections[0] === item ? "light" : "secondary")} onClick={() => onClickButton(0, item)} key={i}>{item}</Button>
                 )})}
                 </div>
-                {onlineCashOptions.map((item, index) => { return (
-                <div className="btn-group-spacing" key={index+1}>
+                {onlineCashOptions.map((item, i) => { return (
+                <div className="btn-group-spacing" key={i+1}>
                     <ButtonGroup size="sm">
-                    {item.map((subitem, subindex) => { return (
-                        <Button variant={(selections[index+1] === subitem ? "light" : "secondary")} disabled={!selections[index].length || ( index === 1 && selections[2] === 'None') ? true : false} onClick={() => onClickButton(index+1, subitem)} key={subindex}>{subitem}</Button>
+                    {item.map((subitem, j) => { return (
+                        <Button variant={(selections[i+1] === subitem ? "light" : "secondary")} disabled={!selections[i].length || ( i === 1 && selections[2] === 'None') ? true : false} onClick={() => onClickButton(i+1, subitem)} key={j}>{subitem}</Button>
                     )})}
                     </ButtonGroup>
                 </div>

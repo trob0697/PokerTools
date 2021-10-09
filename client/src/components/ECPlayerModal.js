@@ -1,9 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Modal, Button } from "react-bootstrap";
+const prange = require('prange')
 
 function HandModal(props){
-    const [cardsSelector, setCardsSelector] = useState(Array.from(Array(4), () => Array(13).fill(false)));
-    const [cardsSelected, setCardsSelected] = useState([]);
+    const [handMatrix, setHandMatrix] = useState(Array.from(Array(4), () => Array(13).fill(false)));
+    const [cardCount, setCardCount] = useState(0);
+
+    useEffect( () => {
+        setHandMatrix(props.player.handMatrix);
+
+        let counter = 0;
+        handMatrix.forEach((row, i) => {
+            row.forEach((col, j) => {
+                if(col)
+                    counter += 1;
+            })
+        })
+        setCardCount(counter);
+    }, [handMatrix, props.player])
 
     const cards = [
         ["A", "K", "Q", "J", "T", "9", "8", "7", "6", "5", "4", "3", "2"],
@@ -12,50 +26,55 @@ function HandModal(props){
         ["A", "K", "Q", "J", "T", "9", "8", "7", "6", "5", "4", "3", "2"]
     ];
 
-    const onOpen = () => {
-        setCardsSelector(Array.from(Array(4), () => Array(13).fill(false)));
-        setCardsSelected([]);
-        props.setShowHandModal(false)
-    }
-
     const onClickCard = (i, j) => {
-        const newCardsSelector = [...cardsSelector];
-        const newCardsSelected = [...cardsSelected];
+        const tempHandMatrix = [...handMatrix];
 
-        let cardVal = cards[i][j];
-        if(i === 0)
-            cardVal += "s";
-        else if(i === 1)
-            cardVal += "h";
-        else if(i === 2)
-            cardVal += "c";
-        else if(i === 3)
-            cardVal += "d";
-
-        if(cardsSelector[i][j]){
-            newCardsSelector[i][j] = false;
-            newCardsSelected.splice(newCardsSelected.indexOf(cardVal, 0), 1);
+        if(handMatrix[i][j]){
+            tempHandMatrix[i][j] = false;
+            setCardCount(cardCount - 1);
         }
-        else if(!cardsSelector[i][j] && cardsSelected.length < 2){
-            newCardsSelector[i][j] = true;
-            newCardsSelected.push(cardVal);
+        else if(!handMatrix[i][j] && cardCount < 2){
+            tempHandMatrix[i][j] = true;
+            setCardCount(cardCount + 1);
         }
         
-        setCardsSelector(newCardsSelector);
-        setCardsSelected(newCardsSelected);
+        setHandMatrix(tempHandMatrix);
     }
 
+    const onSubmitHand = () => {
+        let val = ""
+        for(let i = 0; i < 13; i++){
+            for(let j = 0; j < 4; j++){
+                if(handMatrix[j][i]){
+                    let cardVal = cards[j][i];
+                    if(j === 0)
+                        cardVal += "s";
+                    else if(j === 1)
+                        cardVal += "h";
+                    else if(j === 2)
+                        cardVal += "c";
+                    else if(j === 3)
+                        cardVal += "d";
+                    
+                    val += cardVal;
+                }
+            }
+        }
+
+        props.updatePlayer(val);
+        props.setShowHandModal(false);
+    }
 
     return(
-        <Modal centered show={props.showHandModal} onHide={() => onOpen()}>
+        <Modal centered show={props.showHandModal} onHide={() => props.setShowHandModal(false)}>
             <Modal.Header >
-                <Modal.Title>Hand Selector</Modal.Title>
+                <Modal.Title>Player Hand Selector</Modal.Title>
             </Modal.Header>
             <Modal.Body>
             {cards.map((item, i) => { return (
                 <Row className="flex-nowrap" key={i}>
                 {item.map((subitem, j) => { return (
-                    <Col className={"board-modal-card " + (i % 2 ? "red" : "black")} onClick={() => onClickCard(i, j)} style={cardsSelector[i][j] ? {backgroundColor: "yellow"} : {}} key={j}>
+                    <Col className={"board-modal-card " + (i % 2 ? "red" : "black")} onClick={() => onClickCard(i, j)} style={handMatrix[i][j] ? {backgroundColor: "yellow"} : {}} key={j}>
                         <div>{subitem}</div>
                         {(() => {
                             switch(i){
@@ -77,14 +96,18 @@ function HandModal(props){
             )})}
             </Modal.Body>
             <Modal.Footer>
-                <Button >Submit</Button>
+                <Button disabled={cardCount < 2} onClick={() => onSubmitHand()}>Submit</Button>
             </Modal.Footer>
         </Modal>
     )
 }
 
 function RangeModal(props){
-    const [range, setRange] = useState(Array.from(Array(13), () => Array(13).fill(false)))
+    const [range, setRange] = useState(Array.from(Array(13), () => Array(13).fill(false)));
+
+    useEffect( () => {
+        setRange(props.player.rangeMatrix)
+    }, [props.player])
 
     const hands = [
         ["AA", "AKs", "AQs", "AJs", "ATs", "A9s", "A8s", "A7s", "A6s", "A5s", "A4s", "A3s", "A2s"],
@@ -113,26 +136,52 @@ function RangeModal(props){
             return "#3D3D3D";
     }
 
+    const onClickChart = (i, j) => {
+            const tempRange = [...range];
+            tempRange[i][j] = !tempRange[i][j];
+            setRange(tempRange);
+    }
+
+    const onMouseOverChart = (event, i, j) => {
+        if(event.buttons){
+            const tempRange = [...range];
+            tempRange[i][j] = !tempRange[i][j];
+            setRange(tempRange);
+        }
+    }
+
+    const onSubmitRange = () => {
+        let val = [];
+
+        range.forEach((row, i) => {
+            row.forEach((col, j) => {
+                if(col)
+                    val.push(hands[i][j]);
+            })
+        })
+
+        props.updatePlayer(prange.reverse(val));
+        props.setShowRangeModal(false);
+    }
+
     return(
         <Modal centered size="lg" show={props.showRangeModal} onHide={() => props.setShowRangeModal(false)}>
             <Modal.Header>
-                <Modal.Title>Range Selector</Modal.Title>
+                <Modal.Title>Player Range Selector</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Container className="range-chart-container" >
-                {hands.map((item, index) => { return (
-                    <Row className="justify-content-center" xs="auto" key={index} >
-                    {item.map((subitem, subindex) => { return (
-                        <div style={{padding: 0.1, backgroundColor: "black"}}>
-                            <div className="square" style={{background: getDisplay(index, subindex)}} key={subindex}>{subitem}</div>
-                        </div>
+                <Container className="range-chart-container" style={{width: "fit-content", paddingTop: "1px", backgroundColor: "black"}}>
+                {hands.map((item, i) => { return (
+                    <Row className="justify-content-center" xs="auto" style={{width: "fit-content"}} key={i} >
+                    {item.map((subitem, j) => { return (
+                        <div className="square player-range-modal-square" style={{background: getDisplay(i, j), textAlign: "center"}} onMouseDown={() => onClickChart(i, j)} onMouseOver={(event) => onMouseOverChart(event, i, j)}>{subitem}</div>
                     )})}
                     </Row>
                 )})}
                 </Container>
             </Modal.Body>
             <Modal.Footer>
-                <Button >Submit</Button>
+                <Button onClick={() => onSubmitRange()}>Submit</Button>
             </Modal.Footer>
         </Modal>
     )
@@ -141,8 +190,8 @@ function RangeModal(props){
 function ECPlayerModal(props){
     return(
         <div>
-            <HandModal showHandModal={props.showHandModal} setShowHandModal={props.setShowHandModal} />
-            <RangeModal showRangeModal={props.showRangeModal} setShowRangeModal={props.setShowRangeModal} />
+            <HandModal showHandModal={props.showHandModal} setShowHandModal={props.setShowHandModal} player={props.player} updatePlayer={props.updatePlayer}/>
+            <RangeModal showRangeModal={props.showRangeModal} setShowRangeModal={props.setShowRangeModal} player={props.player} updatePlayer={props.updatePlayer}/>
         </div>
     )
 }

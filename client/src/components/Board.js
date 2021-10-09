@@ -3,8 +3,8 @@ import { Row, Col, Modal, Button } from "react-bootstrap";
 
 function Board(props){
     const [show, setShow] = useState(false);
-    const [cardsSelector, setCardsSelector] = useState(Array.from(Array(4), () => Array(13).fill(false)));
-    const [cardsSelected, setCardsSelected] = useState([]);
+    const [cardsMatrix, setCardsMatrix] = useState(Array.from(Array(4), () => Array(13).fill(false)));
+    const [currentBoard, setCurrentBoard] = useState([]);
 
     const cards = [
         ["A", "K", "Q", "J", "T", "9", "8", "7", "6", "5", "4", "3", "2"],
@@ -21,14 +21,14 @@ function Board(props){
     }
 
     const onModalOpen = () => {
-        setCardsSelector(Array.from(Array(4), () => Array(13).fill(false)));
-        setCardsSelected([]);
+        setCardsMatrix(Array.from(Array(4), () => Array(13).fill(false)));
+        setCurrentBoard([]);
         setShow(true);
     }
 
     const onClickCard = (i, j) => {
-        const newCardsSelector = [...cardsSelector];
-        const newCardsSelected = [...cardsSelected];
+        const tempCardsMatrix = [...cardsMatrix];
+        const tempCurrentBoard = [...currentBoard];
 
         let cardVal = cards[i][j];
         if(i === 0)
@@ -40,21 +40,21 @@ function Board(props){
         else if(i === 3)
             cardVal += "d";
 
-        if(cardsSelector[i][j]){
-            newCardsSelector[i][j] = false;
-            newCardsSelected.splice(newCardsSelected.indexOf(cardVal, 0), 1);
+        if(cardsMatrix[i][j]){
+            tempCardsMatrix[i][j] = false;
+            tempCurrentBoard.splice(tempCurrentBoard.indexOf(cardVal, 0), 1);
         }
-        else if(!cardsSelector[i][j] && cardsSelected.length < 5){
-            newCardsSelector[i][j] = true;
-            newCardsSelected.push(cardVal);
+        else if(!cardsMatrix[i][j] && currentBoard.length < 5){
+            tempCardsMatrix[i][j] = true;
+            tempCurrentBoard.push(cardVal);
         }
         
-        setCardsSelector(newCardsSelector);
-        setCardsSelected(newCardsSelected);
+        setCardsMatrix(tempCardsMatrix);
+        setCurrentBoard(tempCurrentBoard);
     }
 
     const onSubmitSelectedCards = () => {
-        props.setCommunityCards(cardsSelected);
+        props.setCommunityCards(currentBoard);
         setShow(false);
     }
 
@@ -70,13 +70,13 @@ function Board(props){
 
             <Modal centered show={show} onHide={() => setShow(false)}>
                 <Modal.Header >
-                    <Modal.Title>Community Cards Card Selector</Modal.Title>
+                    <Modal.Title>Community Cards Selector</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                 {cards.map((item, i) => { return (
                     <Row className="flex-nowrap" key={i}>
                     {item.map((subitem, j) => { return (
-                        <Col className={"board-modal-card " + (i % 2 ? "red" : "black")} onClick={() => onClickCard(i, j)} style={cardsSelector[i][j] ? {backgroundColor: "yellow"} : {}} key={j}>
+                        <Col className={"board-modal-card " + (i % 2 ? "red" : "black")} onClick={() => onClickCard(i, j)} style={cardsMatrix[i][j] ? {backgroundColor: "yellow"} : {}} key={j}>
                             <div>{subitem}</div>
                             {(() => {
                                 switch(i){

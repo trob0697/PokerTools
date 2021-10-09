@@ -4,7 +4,7 @@ import { Container, Row } from "react-bootstrap";
 import data from "../assets/data/preflopdata.json";
 
 function RangeChart(props){
-    const [range, setRange] = useState(Array.from(Array(13), () => Array(13).fill([0, 0, 0])))
+    const [range, setRange] = useState(Array.from(Array(13), () => Array(13).fill([0, 0, 0])));
 
     useEffect(() => {
         if(props.selections[3].length){
@@ -13,7 +13,7 @@ function RangeChart(props){
             let villain = props.selections[2].replace(/[\s+-]/g, "");
             let hero = props.selections[3].replace(/[\s+-]/g, "") + "r";
 
-            setRange(data[game][scenario][villain][hero])
+            setRange(data[game][scenario][villain][hero]);
         }
     }, [props.selections]);
 
@@ -72,10 +72,10 @@ function RangeChart(props){
 
     return(
         <Container className="range-chart-container">
-        {hands.map((item, index) => { return (
-            <Row className="justify-content-center" xs="auto" key={index}>
-            {item.map((subitem, subindex) => { return (
-                <div className="square" style={{background: getDisplay(index, subindex)}} key={subindex}>{subitem}</div>
+        {hands.map((item, i) => { return (
+            <Row className="justify-content-center" xs="auto" key={i}>
+            {item.map((subitem, j) => { return (
+                <div className="square" style={{background: getDisplay(i, j)}} key={j}>{subitem}</div>
             )})}
             </Row>
         )})}

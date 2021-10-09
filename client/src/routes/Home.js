@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Form, FormControl, Button } from "react-bootstrap"
+import { Form, FormControl, Button } from "react-bootstrap";
 
 function Home(){
-    const [username, setUsername] = useState("")
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [confirmPassword, setConfirmPassword] = useState("")
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
     return(
         <div className="background">

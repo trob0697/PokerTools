@@ -5,17 +5,16 @@ import Board from "../components/Board";
 
 export class Player{
     constructor(){
-        this.hand = []
-        this.range = []
-        this.val = "Empty..."
-        this.win = "??.??%"
-        this.tie = "??.??%"
+        this.handMatrix = Array.from(Array(4), () => Array(13).fill(false));
+        this.rangeMatrix = Array.from(Array(13), () => Array(13).fill(false));
+        this.val = "Empty...";
+        this.equity = "??.??%";
     }
 }
 
 function EquityCalculator(){
     const [players, setPlayers] = useState([new Player(), new Player()]);
-    const [currentPlayer, setCurrentPlayer] = useState(-1);
+    const [currentPlayer, setCurrentPlayer] = useState(0);
     const [showHandModal, setShowHandModal] = useState(false);
     const [showRangeModal, setShowRangeModal] = useState(false);
     const [communityCards, setCommunityCards] = useState([]);
@@ -40,6 +39,13 @@ function EquityCalculator(){
         }
     }
 
+    const updatePlayer = (val) => {
+        const tempPlayers = [...players];
+        tempPlayers[currentPlayer].val = val;
+        tempPlayers.forEach((p, i) => p.equity = "??.??%");
+        setPlayers(tempPlayers);
+    }
+
     return(
         <div className="eq-calc-container">
             <div>
@@ -51,17 +57,16 @@ function EquityCalculator(){
             </div>
 
             <div style={{margin: "1em"}}>
-            {players.map((player, index) => { return (
-                <ButtonGroup className="player-bar" key={index}>
-                    <Button className="player-bar-btn" variant="outline-danger" style={{borderTopLeftRadius: "0.25rem", borderBottomLeftRadius: "0.25rem"}} onClick={() => removePlayerAtIndex(index)}>&times;</Button>
-                    <Button className="player-bar-btn" variant="secondary" onClick={() => {setCurrentPlayer(index); setShowHandModal(true);}}>Hand</Button>
-                    <Button className="player-bar-btn" variant="secondary" onClick={() => {setCurrentPlayer(index); setShowRangeModal(true);}}>Range</Button>
+            {players.map((player, i) => { return (
+                <ButtonGroup className="player-bar" key={i}>
+                    <Button className="player-bar-btn" variant="outline-danger" style={{borderTopLeftRadius: "0.25rem", borderBottomLeftRadius: "0.25rem"}} onClick={() => removePlayerAtIndex(i)}>&times;</Button>
+                    <Button className="player-bar-btn" variant="secondary" onClick={() => {setCurrentPlayer(i); setShowHandModal(true);}}>Hand</Button>
+                    <Button className="player-bar-btn" variant="secondary" onClick={() => {setCurrentPlayer(i); setShowRangeModal(true);}}>Range</Button>
                     <Button className="player-bar-range btn-inactive" variant="light">{player.val}</Button>
-                    <Button className="player-bar-btn btn-inactive player-bar-calc-vals" variant="secondary"><div>Win</div><div>{player.win}</div></Button>
-                    <Button className="player-bar-btn btn-inactive player-bar-calc-vals" variant="secondary"><div>Tie</div><div>{player.tie}</div></Button>
+                    <Button className="player-bar-btn btn-inactive player-bar-calc-vals" variant="secondary" style={{minWidth: "fit-content"}}><div>Equity</div><div>{player.equity}</div></Button>
                 </ButtonGroup>
             )})}
-                <ECPlayerModal showHandModal={showHandModal} setShowHandModal={setShowHandModal} showRangeModal={showRangeModal} setShowRangeModal={setShowRangeModal} />
+                <ECPlayerModal showHandModal={showHandModal} setShowHandModal={setShowHandModal} showRangeModal={showRangeModal} setShowRangeModal={setShowRangeModal} player={players[currentPlayer]} updatePlayer={(payload) => updatePlayer(payload)}/>
             </div>   
 
             <Board communityCards={communityCards} setCommunityCards={(payload) => setCommunityCards(payload)} /> 
