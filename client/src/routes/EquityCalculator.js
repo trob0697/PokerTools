@@ -29,6 +29,7 @@ function EquityCalculator(){
         const tempPlayers = [...players];
         tempPlayers.pop();
         setPlayers(tempPlayers);
+        setCurrentPlayer(0);
     }
 
     const removePlayerAtIndex = (index) => {
@@ -36,6 +37,7 @@ function EquityCalculator(){
             const tempPlayers = [...players];
             tempPlayers.splice(index, 1);
             setPlayers(tempPlayers);
+            setCurrentPlayer(0);
         }
     }
 
