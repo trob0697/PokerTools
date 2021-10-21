@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ButtonGroup, Button } from "react-bootstrap";
 
 import RangeChart from "../components/RangeChart";
-import Dice from "../assets/images/dice.png";
+import Dice from "../assets/dice.png";
 
 function PreflopCharts(){
     const [selections, setSelections] = useState(["", "", "", ""]);

@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row } from "react-bootstrap";
-
-import data from "../assets/data/preflopdata.json";
+import axios from "axios";
 
 function RangeChart(props){
     const [range, setRange] = useState(Array.from(Array(13), () => Array(13).fill([0, 0, 0])));
 
     useEffect(() => {
         if(props.selections[3].length){
-            let game = props.selections[0].replace(/[\s+-]/g, "");
-            let scenario = props.selections[1].replace(/[\s+-]/g, "");
-            let villain = props.selections[2].replace(/[\s+-]/g, "");
-            let hero = props.selections[3].replace(/[\s+-]/g, "") + "r";
-
-            setRange(data[game][scenario][villain][hero]);
+            axios.post("/api/preflopcharts/data", {
+                    game: props.selections[0].replace(/[\s+-]/g, ""),
+                    scenario: props.selections[1].replace(/[\s+-]/g, ""),
+                    villain: props.selections[2].replace(/[\s+-]/g, ""),
+                    hero: props.selections[3].replace(/[\s+-]/g, "") + "r"
+                })
+                .then((res) => {
+                    setRange(res.data);
+                })
+        }
+        else{
+            setRange(Array.from(Array(13), () => Array(13).fill([0, 0, 0])));
         }
     }, [props.selections]);
 

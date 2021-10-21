@@ -9,7 +9,7 @@ body{
 
 /***** Home *****/
 .background{
-    background-image: url("./assets/images/background.jpg") !important;
+    background-image: url("./assets/background.jpg") !important;
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -54,9 +54,46 @@ body{
     display: table-cell;
 }
 
+.landing-description{
+    margin: 0em 1em 1vh 1em;
+    color: white;
+    text-align: start;
+}
+
+
 .features-list{
     text-align: start;
     margin-left: 3em;
+}
+
+.login-register{
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    text-decoration: none;
+    padding: 0vw 3vw 2vh 6vw;
+}
+  
+.login-register h1{
+    display: inline-block;
+    font-size: 2.5em;
+    color: white !important;
+}
+
+.login-register h1:hover{
+    opacity: 75%;
+}
+
+.login-register h1:active{
+    opacity: 50%;
+}
+
+.login-register .selected{
+    border-bottom: 2px solid white;
+}
+
+.login-register .not-selected{
+    border-bottom: 0px solid white;
 }
 
 .form-group{
