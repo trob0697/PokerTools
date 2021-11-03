@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./styles.css";
 
@@ -9,7 +10,7 @@ import EquityCalculator from "./routes/EquityCalculator";
 function App() {
   return (
     <div>
-      <NavigationBar/>
+      <NavigationBar />
       <Router>
         <Switch>
           <Route path="/home">

@@ -1,4 +1,6 @@
-/***** General CSS *****/
+/*************************/
+/****** General CSS ******/
+/*************************/
 body{
     background: #121212 !important;
 }
@@ -7,7 +9,9 @@ body{
     pointer-events: none;
 }
 
-/***** Home *****/
+/*************************/
+/********* Home *********/
+/*************************/
 .background{
     background-image: url("./assets/background.jpg") !important;
     background-size: cover;
@@ -105,8 +109,9 @@ body{
     margin-top: 1em;
 }
 
-
+/*************************/
 /***** PreflopCharts *****/
+/*************************/
 .preflop-charts-btns-container{
     text-align: center;
 }
@@ -119,9 +124,11 @@ body{
     margin-bottom: 1vh;
 }
 
-/***** RangeChart *****/
+/*************************/
+/****** RangeChart ******/
+/*************************/
 .range-chart-container{
-    margin: 1.5em;
+    margin-top: 1em;
 }
 
 .square{
@@ -140,7 +147,9 @@ body{
     text-shadow: #F8F9FA;
 }
 
+/****************************/
 /***** EquityCalculator *****/
+/****************************/
 .eq-calc-container{
     text-align: center;
 }
@@ -179,7 +188,9 @@ body{
     filter: brightness(50%);
 }
 
-/***** Board *****/
+/*************************/
+/********* Board *********/
+/*************************/
 .board{
     width: 100%;
     justify-content: center;
