@@ -7,8 +7,11 @@ export const userSlice = createSlice({
         info: {}
     },
     reducers: {
+        maintainAuthorization: (state) => {
+            state.isAuth = true;
+        },
         authorize: (state, action) => {
-            state.isAuth= true;
+            state.isAuth = true;
             state.info = action.payload;
         },
         deauthorize: (state) => {
@@ -18,6 +21,6 @@ export const userSlice = createSlice({
     }
 });
 
-export const { authorize, deauthorize } = userSlice.actions;
+export const { maintainAuthorization, authorize, deauthorize } = userSlice.actions;
 
 export default userSlice.reducer;

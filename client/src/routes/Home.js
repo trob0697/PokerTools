@@ -52,6 +52,7 @@ function Home(){
             clearAllFields();
             localStorage.setItem("access_token", res.data.access);
             localStorage.setItem("refresh_token", res.data.refresh);
+            localStorage.setItem("isAuth", true);
             dispatch(authorize());
         })
         .catch((error) => {
@@ -60,8 +61,7 @@ function Home(){
     }
 
     const onLogout = () => {
-        localStorage.removeItem("access_token");
-        localStorage.removeItem("refresh_token");
+        localStorage.clear();
         dispatch(deauthorize());
     }
 
