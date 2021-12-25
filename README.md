@@ -1,7 +1,7 @@
 
 # BombPot.com
 
-![Website](https://i.ibb.co/2F71ycx/Screen-Shot-2021-12-24-at-10-19-58-PM.png)
+![Website](https://i.ibb.co/2F71ycx/Screen-Shot-2021-12-24-at-10-19-58-PM.png)  
 A website containing tools useful to pokers players.  
 Tech Stack:
 - React
