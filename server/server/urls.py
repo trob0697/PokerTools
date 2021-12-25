@@ -4,5 +4,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/users/', include('users.urls')),
-    path('api/preflopcharts/', include('preflopcharts.urls'))
+    path('api/preflopcharts/', include('preflopcharts.urls')),
+    path('api/equitycalculator/', include('equitycalculator.urls')),
 ]

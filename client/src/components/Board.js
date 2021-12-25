@@ -54,7 +54,7 @@ function Board(props){
     }
 
     const onSubmitSelectedCards = () => {
-        props.setCommunityCards(currentBoard);
+        props.updateCommunityCards(currentBoard);
         setShow(false);
     }
 

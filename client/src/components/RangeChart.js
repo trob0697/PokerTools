@@ -7,8 +7,8 @@ function RangeChart(props){
 
     useEffect(() => {
         if(props.selections[3].length){
-            axios.get("/api/preflopcharts/data", {
-                    headers: {'Authorization': 'Bearer ' + localStorage.getItem("access_token")},
+            axios.get("/api/preflopcharts/data/", {
+                    headers: {'Authorization': 'Bearer ' + sessionStorage.getItem("access_token")},
                     params: {
                         game: props.selections[0].replace(/[\s+-]/g, ""),
                         scenario: props.selections[1].replace(/[\s+-]/g, ""),
@@ -18,6 +18,9 @@ function RangeChart(props){
                 })
                 .then((res) => {
                     setRange(res.data);
+                })
+                .catch((err) => {
+                    setRange(Array.from(Array(13), () => Array(13).fill([0, 0, 0])))
                 })
         }
         else{

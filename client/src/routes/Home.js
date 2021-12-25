@@ -50,9 +50,9 @@ function Home(){
         })
         .then((res) => {
             clearAllFields();
-            localStorage.setItem("access_token", res.data.access);
-            localStorage.setItem("refresh_token", res.data.refresh);
-            localStorage.setItem("isAuth", true);
+            sessionStorage.setItem("access_token", res.data.access);
+            sessionStorage.setItem("refresh_token", res.data.refresh);
+            sessionStorage.setItem("isAuth", true);
             dispatch(authorize());
         })
         .catch((error) => {
@@ -61,7 +61,7 @@ function Home(){
     }
 
     const onLogout = () => {
-        localStorage.clear();
+        sessionStorage.clear();
         dispatch(deauthorize());
     }
 

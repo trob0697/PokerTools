@@ -42,7 +42,7 @@ function PreflopCharts(){
             <div className="preflop-charts-btns-container">
                 <div className="btn-group-spacing">
                 {games.map((item, i) => { return ( 
-                    <Button className="btn-spacing" variant={(selections[0] === item ? "light" : "secondary")} onClick={() => onClickButton(0, item)} key={i}>{item}</Button>
+                    <Button className="btn-spacing" variant={(selections[0] === item ? "light" : "secondary")} onClick={() => onClickButton(0, item)} key={i} disabled={item === "MTT"}>{item}</Button>
                 )})}
                 </div>
                 {onlineCashOptions.map((item, i) => { return (

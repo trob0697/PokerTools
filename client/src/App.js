@@ -13,7 +13,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(localStorage.getItem("isAuth"))
+    if(sessionStorage.getItem("isAuth"))
       dispatch(maintainAuthorization());
   })
 

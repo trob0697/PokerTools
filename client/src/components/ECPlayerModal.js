@@ -172,9 +172,9 @@ function RangeModal(props){
             <Modal.Body>
                 <Container className="range-chart-container" style={{width: "fit-content", paddingTop: "1px", backgroundColor: "black"}}>
                 {hands.map((item, i) => { return (
-                    <Row className="justify-content-center" xs="auto" style={{width: "fit-content"}} key={i} >
+                    <Row key={i} className="justify-content-center" xs="auto" style={{width: "fit-content"}}>
                     {item.map((subitem, j) => { return (
-                        <div className="square player-range-modal-square" style={{background: getDisplay(i, j), textAlign: "center"}} onMouseDown={() => onClickChart(i, j)} onMouseOver={(event) => onMouseOverChart(event, i, j)}>{subitem}</div>
+                        <div key={j} className="square player-range-modal-square" style={{background: getDisplay(i, j), textAlign: "center"}} onMouseDown={() => onClickChart(i, j)} onMouseOver={(event) => onMouseOverChart(event, i, j)}>{subitem}</div>
                     )})}
                     </Row>
                 )})}

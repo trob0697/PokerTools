@@ -5,7 +5,7 @@ from rest_framework import status
 import json
 
 @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def getChart(request):
     with open("./preflopcharts/data.json", "r") as file:
         data = json.load(file)
