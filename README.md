@@ -1,7 +1,6 @@
 
 # BombPot.com
 
-![Website](demo.mp4)  
 A website containing tools useful to pokers players.  
 Tech Stack:
 - React
