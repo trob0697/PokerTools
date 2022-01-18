@@ -1,5 +1,5 @@
 
-# BombPot.com
+# PokerTools.com
 
 A website containing tools useful to pokers players.  
 Tech Stack:
