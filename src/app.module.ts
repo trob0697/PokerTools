@@ -17,7 +17,9 @@ import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'build'),
+    }),
     TypeOrmModule.forRoot(typeOrmConfig),
     TypeOrmModule.forFeature([User]),
     PreflopchartsModule, UserModule, AuthModule],
