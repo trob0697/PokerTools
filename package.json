@@ -10,7 +10,8 @@
     "front-end-test": "cd front-end && npm test",
     "front-end-eject": "cd front-end && npm eject",
     "back-end-start": "cd back-end && npm start",
-    "back-end-start:dev": "cd back-end && npm run start:dev"
+    "back-end-start:dev": "cd back-end && npm run start:dev",
+    "back-end-start:prod": "cd back-end && npm run start:prod"
   },
   "repository": {
     "type": "git",
