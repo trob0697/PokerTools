@@ -96,24 +96,24 @@ function EquityCalculator(){
             players_cards.push(temp_cards);
         })
 
-        axios.get("/api/equitycalculator/calculate/", {
-            headers: {'Authorization': 'Bearer ' + sessionStorage.getItem("access_token")},
-            params: {
-                players: JSON.stringify(players_cards),
-                board: JSON.stringify(communityCards)
-            }
-        })
-        .then((res) => {
-            let equities = res.data.slice(1);
-            const tempPlayers = [...players];
-            tempPlayers.forEach((p, i) => {
-                if(equities[i] === 1)
-                    p.equity = "100%";
-                else
-                    p.equity =  (equities[i]*100).toFixed(1).toString() + "%";
-            });
-            setPlayers(tempPlayers);
-        })
+        // axios.get("/api/equitycalculator/calculate/", {
+        //     headers: {'Authorization': 'Bearer ' + sessionStorage.getItem("access_token")},
+        //     params: {
+        //         players: JSON.stringify(players_cards),
+        //         board: JSON.stringify(communityCards)
+        //     }
+        // })
+        // .then((res) => {
+        //     let equities = res.data.slice(1);
+        //     const tempPlayers = [...players];
+        //     tempPlayers.forEach((p, i) => {
+        //         if(equities[i] === 1)
+        //             p.equity = "100%";
+        //         else
+        //             p.equity =  (equities[i]*100).toFixed(1).toString() + "%";
+        //     });
+        //     setPlayers(tempPlayers);
+        // })
     }
 
     return(
