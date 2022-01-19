@@ -1,4 +1,6 @@
+import { join } from "path";
 import { Module } from "@nestjs/common";
+import { ServeStaticModule } from "@nestjs/serve-static";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { typeOrmConfig } from "./config";
 
@@ -15,6 +17,9 @@ import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'build'),
+    }),
     TypeOrmModule.forRoot(typeOrmConfig),
     TypeOrmModule.forFeature([User]),
     PreflopchartsModule, UserModule, AuthModule],
