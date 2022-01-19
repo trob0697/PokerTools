@@ -1,0 +1,25 @@
+{
+  "name": "pokertools",
+  "version": "1.0.0",
+  "description": "A website containing tools useful to pokers players.   Tech Stack: - React - Python(Django)",
+  "main": "index.js",
+  "scripts": {
+    "install-all": "cd front-end && npm install && cd ../back-end && npm install",
+    "front-end-start": "cd front-end && npm start",
+    "front-end-build": "cd front-end && npm build",
+    "front-end-test": "cd front-end && npm test",
+    "front-end-eject": "cd front-end && npm eject",
+    "back-end-start": "cd back-end && npm start",
+    "back-end-start:dev": "cd back-end && npm run start:dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trob0697/BombPot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trob0697/BombPot/issues"
+  },
+  "homepage": "https://github.com/trob0697/BombPot#readme"
+}

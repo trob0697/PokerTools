@@ -9,49 +9,52 @@ function Home(){
     const dispatch = useDispatch();
 
     const [isLogin, setIsLogin] = useState(false)
-    const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [responseText, setResponseText] = useState("")
 
     const clearAllFields = () => {
-        setUsername("");
         setEmail("");
+        setUsername("");
         setPassword("");
         setConfirmPassword("");
         setResponseText("")
     }
 
     const onRegister = () => {
+        setResponseText("");
         if(password !== confirmPassword){
             setResponseText("Passwords do not match")
         }
         else{
-            axios.post("/api/users/register/", {
+            axios.post("/api/user/register/", {
                 username: username,
                 email: email,
-                password: password
+                password: password,
+                password2: confirmPassword
             })
             .then((res) => {
                 setResponseText("Account created");
             })
             .catch((error) => {
-                let errors = Object.entries(error.response.data);
-                setResponseText(errors[0][1]);
+                if(error.response.data.message)
+                    setResponseText(error.response.data.message);
+                else
+                    setResponseText("Error: Please try again later");
             })
         }
     }
 
     const onLogin = () => {
-        axios.post("/api/users/login/", {
+        axios.post("/api/user/login/", {
             email: email,
             password: password
         })
         .then((res) => {
             clearAllFields();
-            sessionStorage.setItem("access_token", res.data.access);
-            sessionStorage.setItem("refresh_token", res.data.refresh);
+            sessionStorage.setItem("access_token", res.data.access_token);
             sessionStorage.setItem("isAuth", true);
             dispatch(authorize());
         })
@@ -105,8 +108,8 @@ function Home(){
                         :
                         <div>
                             <Form className="form-group">
-                                <FormControl className="form-item" type="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
                                 <FormControl className="form-item" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                                <FormControl className="form-item" type="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
                                 <FormControl className="form-item" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
                                 <FormControl className="form-item" type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/>
                                 <Button className="form-item" variant="danger" onClick={() => onRegister()}>Create Account</Button>

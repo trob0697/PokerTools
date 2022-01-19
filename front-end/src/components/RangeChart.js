@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { deauthorize } from "../redux/user";
 import { Container, Row } from "react-bootstrap";
 import axios from "axios";
 
 function RangeChart(props){
+    const dispatch = useDispatch();
+    const history = useHistory();
+
     const [range, setRange] = useState(Array.from(Array(13), () => Array(13).fill([0, 0, 0])));
 
-    useEffect(() => {
+    useEffect(() => {   
         if(props.selections[3].length){
-            axios.get("/api/preflopcharts/data/", {
+            axios.get("/api/preflop-charts/query", {
                     headers: {'Authorization': 'Bearer ' + sessionStorage.getItem("access_token")},
                     params: {
                         game: props.selections[0].replace(/[\s+-]/g, ""),
@@ -21,12 +27,17 @@ function RangeChart(props){
                 })
                 .catch((err) => {
                     setRange(Array.from(Array(13), () => Array(13).fill([0, 0, 0])))
+                    if(err.response.status === 401){
+                        sessionStorage.clear();
+                        dispatch(deauthorize());
+                        history.push("/");
+                    }
                 })
         }
         else{
             setRange(Array.from(Array(13), () => Array(13).fill([0, 0, 0])));
         }
-    }, [props.selections]);
+    }, [props.selections, dispatch, history]);
 
     const hands = [
         ["AA", "AKs", "AQs", "AJs", "ATs", "A9s", "A8s", "A7s", "A6s", "A5s", "A4s", "A3s", "A2s"],

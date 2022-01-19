@@ -1,10 +1,24 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { Module } from "@nestjs/common";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { typeOrmConfig } from "./config";
+
+import { PreflopchartsController } from "./preflopcharts/preflopcharts.controller";
+import { PreflopchartsModule } from './preflopcharts/preflopcharts.module';
+import { PreflopChartsService } from "./preflopcharts/preflopcharts.service";
+
+import { UserModule } from './user/user.module';
+import { UserController } from "./user/user.controller";
+import { UserService } from "./user/user.service";
+import { User } from "./user/entities/user.entity";
+
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    TypeOrmModule.forRoot(typeOrmConfig),
+    TypeOrmModule.forFeature([User]),
+    PreflopchartsModule, UserModule, AuthModule],
+  controllers: [PreflopchartsController, UserController],
+  providers: [PreflopChartsService, UserService],
 })
 export class AppModule {}
