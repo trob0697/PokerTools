@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-const data =  require("./data.json");
+import * as data from "./data.json"
 
 @Injectable()
 export class PreflopChartsService{
