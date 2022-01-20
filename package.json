@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "install-all": "cd front-end && npm install && cd ../back-end && npm install",
-    "front-end-start": "cd front-end && npm start",
-    "front-end-build": "cd front-end && npm build",
-    "front-end-test": "cd front-end && npm test",
-    "front-end-eject": "cd front-end && npm eject",
+    "front-end-start": "cd front-end && npm run start",
+    "front-end-build": "cd front-end && npm run build",
+    "front-end-test": "cd front-end && npm run test",
+    "front-end-eject": "cd front-end && npm run eject",
     "back-end-start": "cd back-end && npm start",
     "back-end-start:dev": "cd back-end && npm run start:dev",
     "back-end-start:prod": "cd back-end && npm run start:prod"
