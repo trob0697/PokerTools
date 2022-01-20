@@ -1,6 +1,6 @@
-import { Module } from '@nestjs/common';
-import { PreflopchartsController } from './preflopcharts.controller';
-import { PreflopChartsService } from './preflopcharts.service';
+import { Module } from "@nestjs/common";
+import { PreflopchartsController } from "./preflopcharts.controller";
+import { PreflopChartsService } from "./preflopcharts.service";
 
 @Module({
     imports: [],
