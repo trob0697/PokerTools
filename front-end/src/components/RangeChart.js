@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { Container, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deauthorize } from "../redux/user";
-import { Container, Row } from "react-bootstrap";
 import axios from "axios";
 
 function RangeChart(props){
@@ -14,7 +14,7 @@ function RangeChart(props){
     useEffect(() => {   
         if(props.selections[3].length){
             axios.get("/api/preflop-charts/query", {
-                    headers: {'Authorization': 'Bearer ' + sessionStorage.getItem("access_token")},
+                    headers: {"Authorization": "Bearer " + sessionStorage.getItem("access_token")},
                     params: {
                         game: props.selections[0].replace(/[\s+-]/g, ""),
                         scenario: props.selections[1].replace(/[\s+-]/g, ""),

@@ -49,7 +49,7 @@ function PreflopCharts(){
                 <div className="btn-group-spacing" key={i+1}>
                     <ButtonGroup size="sm">
                     {item.map((subitem, j) => { return (
-                        <Button variant={(selections[i+1] === subitem ? "light" : "secondary")} disabled={!selections[i].length || ( i === 1 && selections[2] === 'None') ? true : false} onClick={() => onClickButton(i+1, subitem)} key={j}>{subitem}</Button>
+                        <Button variant={(selections[i+1] === subitem ? "light" : "secondary")} disabled={!selections[i].length || ( i === 1 && selections[2] === "None") ? true : false} onClick={() => onClickButton(i+1, subitem)} key={j}>{subitem}</Button>
                     )})}
                     </ButtonGroup>
                 </div>

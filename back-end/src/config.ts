@@ -1,5 +1,4 @@
-require('dotenv').config()
-
+require("dotenv").config()
 import { TypeOrmModuleOptions } from "@nestjs/typeorm"
 
 export const typeOrmConfig: TypeOrmModuleOptions = {

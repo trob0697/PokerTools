@@ -32,10 +32,6 @@ Serve the back-end on http://localhost:4000
 npm run back-end
 ```
 
-## Credits
-
-- https://github.com/ktseng/holdem_calc
-
 ## License
 
 Copyright (c) 2021 Tahreak Robinson

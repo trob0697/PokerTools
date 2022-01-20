@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { ButtonGroup, Button } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { deauthorize } from "../redux/user";
 import axios from "axios";
 import ECPlayerModal from "../components/ECPlayerModal";
 import Board from "../components/Board";
@@ -14,6 +17,9 @@ export class Player{
 }
 
 function EquityCalculator(){
+    const dispatch = useDispatch();
+    const history = useHistory();
+
     const [players, setPlayers] = useState([new Player(), new Player()]);
     const [currentPlayer, setCurrentPlayer] = useState(0);
     const [showHandModal, setShowHandModal] = useState(false);
@@ -90,30 +96,30 @@ function EquityCalculator(){
     const calculateEquity = () => {
         let players_cards = [];
         
-        players.forEach((player) => {
-            let temp_cards = [];
-            temp_cards.push(player.val.substring(0, 2), player.val.substring(2));
-            players_cards.push(temp_cards);
-        })
+        players.forEach((player) => players_cards.push(player.val));
 
-        // axios.get("/api/equitycalculator/calculate/", {
-        //     headers: {'Authorization': 'Bearer ' + sessionStorage.getItem("access_token")},
-        //     params: {
-        //         players: JSON.stringify(players_cards),
-        //         board: JSON.stringify(communityCards)
-        //     }
-        // })
-        // .then((res) => {
-        //     let equities = res.data.slice(1);
-        //     const tempPlayers = [...players];
-        //     tempPlayers.forEach((p, i) => {
-        //         if(equities[i] === 1)
-        //             p.equity = "100%";
-        //         else
-        //             p.equity =  (equities[i]*100).toFixed(1).toString() + "%";
-        //     });
-        //     setPlayers(tempPlayers);
-        // })
+        axios.post("/api/equity-calculator/calculate/", 
+            { players: JSON.stringify(players_cards), board: JSON.stringify(communityCards) },
+            { headers: {"Authorization": "Bearer " + sessionStorage.getItem("access_token")} }
+        )
+        .then((res) => {
+            let equities = res.data;
+            const tempPlayers = [...players];
+            tempPlayers.forEach((p, i) => {
+                if(equities[i] === 1)
+                    p.equity = "100%";
+                else
+                    p.equity = equities[i].toString() + "%";
+            });
+            setPlayers(tempPlayers);
+        })
+        .catch((err) => {
+            if(err.response.status === 401){
+                sessionStorage.clear();
+                dispatch(deauthorize());
+                history.push("/");
+            }
+        })
     }
 
     return(

@@ -6,6 +6,7 @@ import { PreflopChartsService } from "./preflopcharts.service";
 export class PreflopchartsController {
     constructor(private preflopChartsService: PreflopChartsService) {}
 
+    @UseGuards(JwtAuthGuard)
     @Get("all")
     async getAllCharts(): Promise<any>{
         return this.preflopChartsService.getAllCharts();

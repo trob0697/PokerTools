@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Modal, Button } from "react-bootstrap";
-const prange = require('prange')
+const prange = require("prange")
 
 function HandModal(props){
     const [handMatrix, setHandMatrix] = useState(Array.from(Array(4), () => Array(13).fill(false)));
@@ -159,8 +159,11 @@ function RangeModal(props){
                     val.push(hands[i][j]);
             })
         })
-
-        props.updatePlayer(prange.reverse(val));
+        
+        if(val.length)
+            props.updatePlayer(prange.reverse(val));
+        else
+            props.updatePlayer("Empty...");
         props.setShowRangeModal(false);
     }
 
