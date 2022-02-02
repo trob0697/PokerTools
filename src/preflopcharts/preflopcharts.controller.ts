@@ -7,15 +7,9 @@ export class PreflopchartsController {
     constructor(private preflopChartsService: PreflopChartsService) {}
 
     @UseGuards(JwtAuthGuard)
-    @Get("all")
-    async getAllCharts(): Promise<any>{
-        return this.preflopChartsService.getAllCharts();
-    }
-
-    @UseGuards(JwtAuthGuard)
-    @Get("query")
+    @Get("chart")
     async getSpecificChart(@Query() query): Promise<JSON>{
-        const { game, scenario, villain, hero } = query;
-        return this.preflopChartsService.getChart(game, scenario, villain, hero);
+        const { chart, scenario, villain, hero } = query;
+        return this.preflopChartsService.getChart(chart, scenario, villain, hero);
     }
 }
