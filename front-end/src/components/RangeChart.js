@@ -13,10 +13,10 @@ function RangeChart(props){
 
     useEffect(() => {   
         if(props.selections[3].length){
-            axios.get("/api/preflop-charts/query", {
+            axios.get("/api/preflop-charts/chart", {
                     headers: {"Authorization": "Bearer " + sessionStorage.getItem("access_token")},
                     params: {
-                        game: props.selections[0].replace(/[\s+-]/g, ""),
+                        chart: props.selections[0].replace(/[\s+-]/g, ""),
                         scenario: props.selections[1].replace(/[\s+-]/g, ""),
                         villain: props.selections[2].replace(/[\s+-]/g, ""),
                         hero: props.selections[3].replace(/[\s+-]/g, "") + "r"
@@ -97,7 +97,7 @@ function RangeChart(props){
         {hands.map((item, i) => { return (
             <Row className="justify-content-center" xs="auto" key={i}>
             {item.map((subitem, j) => { return (
-                <div className="square" style={{background: getDisplay(i, j)}} key={j}>{subitem}</div>
+                <div className="square" style={{background: getDisplay(i, j)}} key={j} onMouseEnter={() => props.onHoverEnter(range[i][j])} onMouseLeave={() => props.onHoverExit()}>{subitem}</div>
             )})}
             </Row>
         )})}

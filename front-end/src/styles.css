@@ -85,11 +85,11 @@ body{
 }
 
 .login-register h1:hover{
-    opacity: 75%;
+    opacity: 0.75;
 }
 
 .login-register h1:active{
-    opacity: 50%;
+    opacity: 0.50;
 }
 
 .login-register .selected{
@@ -122,6 +122,16 @@ body{
 
 .btn-group-spacing{
     margin-bottom: 1vh;
+}
+
+.frequency-display{
+    user-select: none;
+    text-align: center;
+}
+
+.frequency-display span {
+    font-size: 0.75em;
+    color: #F8F9FA;
 }
 
 /*************************/

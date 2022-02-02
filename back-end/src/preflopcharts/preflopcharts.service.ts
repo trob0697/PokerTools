@@ -1,13 +1,15 @@
 import { Injectable } from "@nestjs/common";
-import * as data from "./data.json"
+import * as upswingData from "./data/upswingData.json";
+import * as carrotCornerData from "./data/carrotCornerData.json";
 
 @Injectable()
 export class PreflopChartsService{
-    getAllCharts(){
-        return data;
-    }
-
-    getChart(game: string, scenario: string, villain: string, hero: string){
-        return data[game][scenario][villain][hero];
+    getChart(chart: string, scenario: string, villain: string, hero: string){
+        if(chart === "UpswingPoker")
+            return upswingData[scenario][villain][hero];
+        else if(chart === "CarrotCorner")
+            return carrotCornerData[scenario][villain][hero];
+        else
+            return null;
     }
 }

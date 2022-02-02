@@ -8,7 +8,7 @@ function Home(){
     const state = useSelector((state) => state);
     const dispatch = useDispatch();
 
-    const [isLogin, setIsLogin] = useState(false)
+    const [isLogin, setIsLogin] = useState(true)
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -24,27 +24,27 @@ function Home(){
     }
 
     const onRegister = () => {
-        setResponseText("");
-        if(password !== confirmPassword){
-            setResponseText("Passwords do not match")
-        }
-        else{
-            axios.post("/api/user/register/", {
-                username: username,
-                email: email,
-                password: password,
-                password2: confirmPassword
-            })
-            .then((res) => {
-                setResponseText("Account created");
-            })
-            .catch((error) => {
-                if(error.response.data.message)
-                    setResponseText(error.response.data.message);
-                else
-                    setResponseText("Error: Please try again later");
-            })
-        }
+        setResponseText("This feature is currently disabled");
+        // if(password !== confirmPassword){
+        //     setResponseText("Passwords do not match")
+        // }
+        // else{
+        //     axios.post("/api/user/register/", {
+        //         username: username,
+        //         email: email,
+        //         password: password,
+        //         password2: confirmPassword
+        //     })
+        //     .then((res) => {
+        //         setResponseText("Account created");
+        //     })
+        //     .catch((error) => {
+        //         if(error.response.data.message)
+        //             setResponseText(error.response.data.message);
+        //         else
+        //             setResponseText("Error: Please try again later");
+        //     })
+        // }
     }
 
     const onLogin = () => {
@@ -94,8 +94,8 @@ function Home(){
                 <div className="box">
                     <div className="box-container">
                         <div className="login-register">
-                            <h1 className={!isLogin ? "selected" : "not-selected"} onClick={() => {clearAllFields(); setIsLogin(false);}}>Register</h1>
                             <h1 className={isLogin ? "selected" : "not-selected"} onClick={() => {clearAllFields(); setIsLogin(true);}}>Login</h1>
+                            <h1 className={!isLogin ? "selected" : "not-selected"} onClick={() => {clearAllFields(); setIsLogin(false);}}>Register</h1>
                         </div>
                         {isLogin ?
                         <div style={{width: "100%"}}>
