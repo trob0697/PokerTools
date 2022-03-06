@@ -41,7 +41,7 @@ function PreflopCharts(){
                     history.push("/");
                 }
             })
-    });
+    }, [state.user.token, dispatch, history]);
 
     const changeChart = (val) => {
         let newChartIndex = curChartIndex + val;

@@ -31,7 +31,7 @@ function SettingsManageCharts(){
                     history.push("/");
                 }
             })
-    });
+    }, [state.user.token, dispatch, history]);
 
     const removeChart = async (index) => {
         confirmAlert({
