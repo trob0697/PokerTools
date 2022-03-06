@@ -110,14 +110,14 @@ function PreflopCharts(){
                     </ButtonGroup>
                 </div>
                 <div className="btn-group-spacing">
-                    <ButtonGroup size="sm">
+                    <ButtonGroup className="villain-btn-group" size="sm">
                     {["UTG", "HJ", "CO", "BTN", "SB", "BB"].map((item, i) => { return (
                         <Button key={i} variant={(selections[2] === item ? "light" : "secondary")} disabled={!selections[1].length || selections[2] === "None"} onClick={() => onClickButton(item, 2)}>{item}</Button>
                     )})}
                     </ButtonGroup>
                 </div>
                 <div className="btn-group-spacing">
-                    <ButtonGroup size="sm">
+                    <ButtonGroup className="hero-btn-group" size="sm">
                     {["UTG", "HJ", "CO", "BTN", "SB", "BB"].map((item, i) => { return (
                         <Button key={i} variant={(selections[3] === item ? "light" : "secondary")} disabled={!selections[2].length} onClick={() => onClickButton(item, 3)}>{item}</Button>
                     )})}

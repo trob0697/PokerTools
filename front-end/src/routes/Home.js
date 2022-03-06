@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import { Form, FormControl, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { authorize, deauthorize } from "../redux/user";
-import { Form, FormControl, Button } from "react-bootstrap";
 import axios from "axios";
 
 function Home(){
@@ -30,13 +30,16 @@ function Home(){
                 password2: confirmPassword
             })
             .then((res) => {
-                alert("Account created");
+                alert("Account created. Please verify your email");
+                clearAllFields();
+                setIsLogin(true);
             })
             .catch((e) => {
-                if(e.response.data.message)
-                    alert(e.response.data.message);
-                else
+                if(e.response.data.status === 400)
                     alert("Error: Please try again later");
+                else
+                    alert(e.response.data.message);
+                clearAllFields();
             })
         }
     }
@@ -52,8 +55,11 @@ function Home(){
                 dispatch(authorize(res.data));            
             })
             .catch((e) => {
+                if(e.response.data.message === "Please verify your email address")
+                    alert("Please verify your email address");
+                else
+                    alert("Login Failed");
                 clearAllFields();
-                alert("Login failed");
             })
     }
 

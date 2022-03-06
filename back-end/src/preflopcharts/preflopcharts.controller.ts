@@ -17,7 +17,7 @@ export class PreflopchartsController {
 
             if(JSON.parse(await this.preflopChartsService.getUsersCharts(user["id"])).length >= 5)
                 throw new HttpException("Maximum amount of charts for this user has been reached", HttpStatus.NOT_ACCEPTABLE);
-            if(await !this.preflopChartsService.validateChartName(user["id"], req.body.folder))
+            if(!await this.preflopChartsService.validateChartName(user["id"], req.body.folder))
                 throw new HttpException("This chart name is already taken", HttpStatus.NOT_ACCEPTABLE);
 
             const rawData = await this.preflopChartsService.parseChartData(req.body.folder);

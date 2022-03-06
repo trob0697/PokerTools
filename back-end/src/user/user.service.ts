@@ -22,7 +22,7 @@ export class UserService {
     return await user.save();
   }
 
-  async findOneUserByEmail(email: string): Promise<User | undefined>{
+  async findUserByEmail(email: string): Promise<User | undefined>{
     const user = await getConnection().createQueryBuilder()
       .select("user")
       .from(User, "user")

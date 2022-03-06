@@ -124,6 +124,18 @@ body{
     margin-bottom: 1vh;
 }
 
+.villain-btn-group{
+    -webkit-box-shadow: 0px 0px 0.25vw 0px rgba(214,3,3,0.9);
+    -moz-box-shadow: 0px 0px 0.25vw 0px rgba(214,3,3,0.9);
+    box-shadow: 0px 0px 0.25vw 0px rgba(214,3,3,0.9);
+}
+
+.hero-btn-group{
+    -webkit-box-shadow: 0px 0px 0.25vw 0px rgba(0,209,56,0.9);
+    -moz-box-shadow: 0px 0px 0.25vw 0px rgba(0,209,56,0.9);
+    box-shadow: 0px 0px 0.25vw 0px rgba(0,209,56,0.9);
+}
+
 .frequency-display{
     user-select: none;
     text-align: center;
