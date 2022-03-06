@@ -26,9 +26,9 @@ function RangeChart(props){
                 .then((res) => {
                     setRange(res.data);
                 })
-                .catch((err) => {
+                .catch((e) => {
                     setRange(Array.from(Array(13), () => Array(13).fill([0, 0, 0])))
-                    if(err.response.status === 401){
+                    if(e.response.status === 401){
                         dispatch(deauthorize());
                         history.push("/");
                     }

@@ -115,8 +115,8 @@ function EquityCalculator(){
                 });
                 setPlayers(tempPlayers);
             })
-            .catch((err) => {
-                if(err.response.status === 401){
+            .catch((e) => {
+                if(e.response.status === 401){
                     dispatch(deauthorize());
                     history.push("/");
                 }

@@ -51,7 +51,7 @@ function Home(){
                 clearAllFields();
                 dispatch(authorize(res.data));            
             })
-            .catch((error) => {
+            .catch((e) => {
                 clearAllFields();
                 alert("Login failed");
             })
