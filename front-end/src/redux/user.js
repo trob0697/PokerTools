@@ -1,26 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = {
+    token: "",
+    id: null,
+    email: null,
+    verified: null,
+    active: null
+}
+
 export const userSlice = createSlice({
     name: "user",
-    initialState: {
-        isAuth: false,
-        info: {}
-    },
+    initialState,
     reducers: {
-        maintainAuthorization: (state) => {
-            state.isAuth = true;
-        },
         authorize: (state, action) => {
-            state.isAuth = true;
-            state.info = action.payload;
+            state.token = action.payload.access_token;
+            state.id = action.payload.id;
+            state.email = action.payload.email;
+            state.verified = action.payload.verified;
+            state.active = action.payload.active;
         },
-        deauthorize: (state) => {
-            state.isAuth = false;
-            state.info = {};
+        deauthorize: () => {
+            return initialState;
         }
     }
 });
 
-export const { maintainAuthorization, authorize, deauthorize } = userSlice.actions;
+export const { authorize, deauthorize } = userSlice.actions;
 
 export default userSlice.reducer;

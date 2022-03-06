@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { ButtonGroup, Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { deauthorize } from "../redux/user";
 import axios from "axios";
-import ECPlayerModal from "../components/ECPlayerModal";
-import Board from "../components/Board";
+
+import ECPlayerModal from "../components/equitycalculator/ECPlayerModal";
+import Board from "../components/equitycalculator/Board";
 
 export class Player{
     constructor(){
@@ -17,6 +18,7 @@ export class Player{
 }
 
 function EquityCalculator(){
+    const state = useSelector((state) => state);
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -99,27 +101,26 @@ function EquityCalculator(){
         players.forEach((player) => players_cards.push(player.val));
 
         axios.post("/api/equity-calculator/calculate/", 
-            { players: JSON.stringify(players_cards), board: JSON.stringify(communityCards) },
-            { headers: {"Authorization": "Bearer " + sessionStorage.getItem("access_token")} }
-        )
-        .then((res) => {
-            let equities = res.data;
-            const tempPlayers = [...players];
-            tempPlayers.forEach((p, i) => {
-                if(equities[i] === 1)
-                    p.equity = "100%";
-                else
-                    p.equity = equities[i].toString() + "%";
-            });
-            setPlayers(tempPlayers);
-        })
-        .catch((err) => {
-            if(err.response.status === 401){
-                sessionStorage.clear();
-                dispatch(deauthorize());
-                history.push("/");
-            }
-        })
+                { players: JSON.stringify(players_cards), board: JSON.stringify(communityCards) },
+                { headers: { "Authorization": "Bearer " + state.user.token } }
+            )
+            .then((res) => {
+                let equities = res.data;
+                const tempPlayers = [...players];
+                tempPlayers.forEach((p, i) => {
+                    if(equities[i] === 1)
+                        p.equity = "100%";
+                    else
+                        p.equity = equities[i].toString() + "%";
+                });
+                setPlayers(tempPlayers);
+            })
+            .catch((err) => {
+                if(err.response.status === 401){
+                    dispatch(deauthorize());
+                    history.push("/");
+                }
+            })
     }
 
     return(

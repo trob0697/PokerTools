@@ -4,14 +4,15 @@ import { ServeStaticModule } from "@nestjs/serve-static";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { typeOrmConfig } from "./config";
 
-import { PreflopchartsController } from "./preflopcharts/preflopcharts.controller";
-import { PreflopchartsModule } from "./preflopcharts/preflopcharts.module";
-import { PreflopChartsService } from "./preflopcharts/preflopcharts.service";
-
 import { UserModule } from "./user/user.module";
 import { UserController } from "./user/user.controller";
 import { UserService } from "./user/user.service";
 import { User } from "./user/entities/user.entity";
+
+import { PreflopchartsController } from "./preflopcharts/preflopcharts.controller";
+import { PreflopchartsModule } from "./preflopcharts/preflopcharts.module";
+import { PreflopChartsService } from "./preflopcharts/preflopcharts.service";
+import { Chart } from "./preflopcharts/entities/chart.entity";
 
 import { AuthModule } from "./auth/auth.module";
 
@@ -25,9 +26,9 @@ import { EquityCalculatorService } from "./equitycalculator/equitycalculator.ser
       rootPath: join(__dirname, "..", "build"),
     }),
     TypeOrmModule.forRoot(typeOrmConfig),
-    TypeOrmModule.forFeature([User]),
-    PreflopchartsModule, UserModule, AuthModule, EquityCalculatorModule],
-  controllers: [PreflopchartsController, UserController, EquityCalculatorController],
-  providers: [PreflopChartsService, UserService, EquityCalculatorService],
+    TypeOrmModule.forFeature([User, Chart]),
+    UserModule, AuthModule, PreflopchartsModule, EquityCalculatorModule],
+  controllers: [UserController, PreflopchartsController, EquityCalculatorController],
+  providers: [UserService, PreflopChartsService, EquityCalculatorService],
 })
 export class AppModule {}

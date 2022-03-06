@@ -116,8 +116,8 @@ body{
     text-align: center;
 }
 
-.btn-spacing{
-    margin: 1em 1em 0.5em;
+.header-btn-spacing{
+    margin: 1.5vh;
 }
 
 .btn-group-spacing{
@@ -209,7 +209,7 @@ body{
 }
 
 .board:hover{
-    filter: brightness(85%);
+    filter: brightness(75%);
 }
 
 .board:active{
@@ -250,4 +250,135 @@ body{
 
 .board-modal-card:active{
     filter: brightness(50%);
+}
+
+/*************************/
+/******** Settings *******/
+/*************************/
+.settings-page-container{
+    padding: 1vh 1vw 1vh 1vw;
+}
+
+.settings-tab-container{
+    margin: 2vh 2vw 2vh 2vw;
+}
+
+.settings-tab-container li{
+    font-size: calc(0.75vw + 0.75vh);
+    width: max-content;
+    margin-bottom: 0.75vh;
+    color: #FFFFFF8C;
+    user-select: none;
+}
+
+.settings-tab-container li:hover{
+    opacity: 0.75;
+}
+
+.settings-tab-container li:active{
+    opacity: 0.50;
+}
+
+.settings-tab-selected{
+    color: white !important;
+}
+
+.settings-subpage-container{
+    width: 100%;
+    min-height: calc(96vh - 50px);
+    padding: 2vh 2vw 2vh 2vw;
+    color: white;
+    border-left: 1px solid white;
+}
+
+.settings-subpage-header{
+    font-size: calc(2vw + 1vh);
+    text-align: center;
+}
+
+.settings-ad-container{
+    padding-left: 2.5vh;
+}
+
+.settings-ad-sub-container{
+    padding: 1vh 0 1vh 0;
+}
+
+.settings-ad-sub-container span{
+    font-size: calc(0.5vw + 1vh);
+}
+
+.settings-ad-user-info{
+    opacity: 0.5;
+}
+
+.settings-ad-form-container{
+    padding-left: 2em;
+    width: 50vw;
+}
+
+.settings-ad-form-item{
+    padding: 0.5vw 0.75vw 0.5vw 0.75vw;
+    font-size: calc(0.5vw + 1vh);
+}
+
+.settings-subscription-button{
+    text-align: center;
+}
+
+.settings-s-container{
+    margin-top: 33vh;
+    text-align: center;
+}
+
+.settings-mc-container{
+    margin: 2em;
+}
+
+.settings-mc-chart-item{
+    width: 50vw;
+    font-size: calc(0.5vw + 1.25vh);
+}
+
+.settings-mc-chart-item-delete{
+    cursor: pointer;
+    float: right;
+    color: #DC3545;
+}
+
+.settings-mc-chart-item-delete:hover{
+    opacity: 0.75;
+}
+
+.settings-mc-chart-item-delete:active{
+    opacity: 0.50;
+}
+
+.settings-mc-chart-tip{
+    margin: 0.25vh;
+    text-align: center;
+    font-size: calc(0.5vw + 0.75vh);;
+    opacity: 0.33;
+}
+
+.settings-mc-upload-chart{
+    margin-top: 2.5vh;
+    text-align: center;
+}
+
+.settings-mc-upload-chart-item{
+    margin: 0 0.25vw 0 0.25vw;
+    min-width: 6vw;
+    font-size: calc(0.6vw + 0.75vh);
+}
+
+.settings-tos-content{
+    padding: 1vh 1vw 1vh 1vw;
+}
+
+
+.settings-tos-paragraph{
+    margin: 1vh 1vw 1vh 1vw;
+    font-size: calc(0.5vw + 1vh);
+    color: gray;
 }

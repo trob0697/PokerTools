@@ -14,18 +14,18 @@ function NavigationBar(){
             <Navbar.Collapse>
                 <Nav className="me-auto" activeKey={window.location.pathname}>
                     <Nav.Link href="/home">Home</Nav.Link>
-                    {!state.user.isAuth ? <></> :
+                    {state.user.active ?
                     <>
                         <Nav.Link href="/preflop-charts">Preflop Charts</Nav.Link>
                         <Nav.Link href="/equity-calculator">Equity Calculator</Nav.Link>
                     </>
-                    }
+                    : <></>}
                 </Nav>
-                {!state.user.isAuth ? <></> :
+                {state.user.verified ?
                 <Nav>
-                    <Nav.Link style={{padding: 0, marginRight: "1em", fontSize: "1.5em"}}>&#9881;</Nav.Link>
+                    <Nav.Link href="/settings" style={{padding: 0, marginRight: "1em", fontSize: "1.5em"}}>&#9881;</Nav.Link>
                 </Nav>
-                }
+                : <></>}
             </Navbar.Collapse>
         </Navbar>
     );

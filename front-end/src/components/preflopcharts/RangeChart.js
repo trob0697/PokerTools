@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import { deauthorize } from "../../redux/user";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { deauthorize } from "../redux/user";
 import axios from "axios";
 
 function RangeChart(props){
+    const state = useSelector((state) => state);
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -13,22 +14,21 @@ function RangeChart(props){
 
     useEffect(() => {   
         if(props.selections[3].length){
-            axios.get("/api/preflop-charts/chart", {
-                    headers: {"Authorization": "Bearer " + sessionStorage.getItem("access_token")},
-                    params: {
-                        chart: props.selections[0].replace(/[\s+-]/g, ""),
-                        scenario: props.selections[1].replace(/[\s+-]/g, ""),
-                        villain: props.selections[2].replace(/[\s+-]/g, ""),
-                        hero: props.selections[3].replace(/[\s+-]/g, "") + "r"
-                    }
-                })
+            axios.post("/api/preflop-charts/chart-data", 
+                    {
+                        name: props.selections[0],
+                        scenario: props.selections[1],
+                        villain: props.selections[2],
+                        hero: props.selections[3]
+                    },
+                    { headers: { "Authorization": "Bearer " + state.user.token } }
+                )
                 .then((res) => {
                     setRange(res.data);
                 })
                 .catch((err) => {
                     setRange(Array.from(Array(13), () => Array(13).fill([0, 0, 0])))
                     if(err.response.status === 401){
-                        sessionStorage.clear();
                         dispatch(deauthorize());
                         history.push("/");
                     }
@@ -37,7 +37,7 @@ function RangeChart(props){
         else{
             setRange(Array.from(Array(13), () => Array(13).fill([0, 0, 0])));
         }
-    }, [props.selections, dispatch, history]);
+    }, [props.selections, state, dispatch, history]);
 
     const hands = [
         ["AA", "AKs", "AQs", "AJs", "ATs", "A9s", "A8s", "A7s", "A6s", "A5s", "A4s", "A3s", "A2s"],

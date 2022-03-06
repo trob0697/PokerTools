@@ -1,8 +1,8 @@
 {
   "name": "pokertools",
   "version": "1.0.0",
-  "description": "A website containing tools useful to pokers players.   Tech Stack: - React - Python(Django)",
-  "main": "index.js",
+  "description": "A web app providing tools useful to pokers players",
+  "main": "",
   "scripts": {
     "install-all": "cd front-end && npm install && cd ../back-end && npm install",
     "front-end-start": "cd front-end && npm run start",
@@ -15,12 +15,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/trob0697/BombPot.git"
+    "url": "git+https://github.com/trob0697/PokerTools.git"
   },
-  "author": "",
+  "author": "Tahreak Robinson",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/trob0697/BombPot/issues"
+    "url": "https://github.com/trob0697/PokerTools/issues"
   },
-  "homepage": "https://github.com/trob0697/BombPot#readme"
+  "homepage": "https://github.com/trob0697/PokerTools#readme"
 }
