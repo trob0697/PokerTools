@@ -5,7 +5,7 @@ import * as bcrypt from "bcrypt";
 
 @Injectable()
 export class UserService {
-  async userUniqueValidation(email: string): Promise<boolean> {
+  async emailIsUnique(email: string): Promise<boolean> {
     const count = await getConnection().createQueryBuilder()
       .select("user")
       .from(User, "user")
@@ -44,7 +44,7 @@ export class UserService {
 
   async changeEmail(id: number, newEmail: string, password: string): Promise<void>{
     const user = await this.findOneUserById(id);
-    if(user && await this.userUniqueValidation(newEmail) && await bcrypt.compare(password, user.password)){
+    if(user && await this.emailIsUnique(newEmail) && await bcrypt.compare(password, user.password)){
       user.email = newEmail;
       user.verified = false;
       user.save();
