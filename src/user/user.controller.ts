@@ -13,7 +13,7 @@ export class UserController {
   async register(@Request() req){
     try{
       const { email, password, password2 } = req.body;
-      if(await this.userService.userUniqueValidation(email))
+      if(await !this.userService.emailIsUnique(email))
         throw new HttpException("This email is taken", HttpStatus.CONFLICT);
       if(password !== password2)
         throw new HttpException("The passwords do not match", HttpStatus.FORBIDDEN);
